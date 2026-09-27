@@ -1,9 +1,9 @@
 #!/bin/bash
-# 构建剪贴板历史 .app（无需 Xcode 工程，直接用 swiftc 编译）
+# 构建 ClipStack.app（无需 Xcode 工程，直接用 swiftc 编译）
 set -euo pipefail
 cd "$(dirname "$0")"
 
-APP_NAME="ClipboardHistory"
+APP_NAME="ClipStack"
 BUILD_DIR="build"
 APP="$BUILD_DIR/$APP_NAME.app"
 

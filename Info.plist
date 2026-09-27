@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>ClipboardHistory</string>
+	<string>ClipStack</string>
 	<key>CFBundleDisplayName</key>
-	<string>剪贴板历史</string>
+	<string>ClipStack</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.local.clipboardhistory</string>
+	<string>com.local.clipstack</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleExecutable</key>
-	<string>ClipboardHistory</string>
+	<string>ClipStack</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>LSMinimumSystemVersion</key>

@@ -1,4 +1,4 @@
-# 剪贴板历史 (ClipboardHistory)
+# ClipStack · macOS 剪贴板历史（Win+V 风格）
 
 macOS 版的「Win+V」剪贴板历史工具：原生 Swift + AppKit 编写的菜单栏应用，无第三方依赖，内存占用小。
 
@@ -16,7 +16,7 @@ macOS 版的「Win+V」剪贴板历史工具：原生 Swift + AppKit 编写的�
 
 ```bash
 ./build.sh
-open build/ClipboardHistory.app
+open build/ClipStack.app
 ```
 
 编译需要 macOS 13+ 和 Xcode Command Line Tools（`xcode-select --install`）。
@@ -54,11 +54,11 @@ open build/ClipboardHistory.app
 
 ## 常驻后台
 
-系统设置 → 通用 → 登录项 → `+` 选择 `build/ClipboardHistory.app`，即可开机自启。
+系统设置 → 通用 → 登录项 → `+` 选择 `build/ClipStack.app`，即可开机自启。
 
 ## 卸载
 
 ```bash
-pkill -x ClipboardHistory
+pkill -x ClipStack
 rm -rf build
 ```
