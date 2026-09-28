@@ -8,7 +8,7 @@ BUILD_DIR="build"
 APP="$BUILD_DIR/$APP_NAME.app"
 
 rm -rf "$APP"
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 swiftc -O \
   Sources/*.swift \
@@ -18,6 +18,7 @@ swiftc -O \
   -framework CryptoKit
 
 cp Info.plist "$APP/Contents/Info.plist"
+cp Resources/AppIcon.icns "$APP/Contents/Resources/"
 
 codesign --force --sign - "$APP" >/dev/null 2>&1 || true
 
