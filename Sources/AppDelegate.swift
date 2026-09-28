@@ -7,9 +7,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var panelController: PanelController!
     private var hotKey: HotKey?
     private var statusItem: NSStatusItem!
+    private var persistence: HistoryPersistence?
+    private var saveTimer: Timer?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         panelController = PanelController(store: store)
+
+        // 从磁盘恢复上次的历史，之后数据一变就防抖落盘
+        let persistence = HistoryPersistence()
+        self.persistence = persistence
+        store.replaceAll(persistence.load())
+        store.addListener { [weak self] in self?.scheduleSave() }
+
         monitor = ClipboardMonitor(store: store)
         panelController.onCopy = { [weak self] item in
             self?.monitor.write(item)
@@ -28,6 +37,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool { true }
+
+    func applicationWillTerminate(_ notification: Notification) {
+        saveNow()
+    }
+
+    /// 数据变化后延迟落盘，避免连续复制时频繁写文件
+    private func scheduleSave() {
+        saveTimer?.invalidate()
+        saveTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
+            self?.saveNow()
+        }
+    }
+
+    private func saveNow() {
+        persistence?.save(store.items)
+    }
 
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)

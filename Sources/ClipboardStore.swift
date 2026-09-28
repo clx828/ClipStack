@@ -62,10 +62,21 @@ struct ClipboardItem {
 /// items 始终按"最新在前"排序；展示时置顶条目排在最前。
 final class ClipboardStore {
     private(set) var items: [ClipboardItem] = []
-    var onUpdate: (() -> Void)?
+    private var listeners: [() -> Void] = []
     var maxItems = 200
 
     var count: Int { items.count }
+
+    /// 订阅数据变化（面板刷新、持久化落盘都用这个）
+    func addListener(_ listener: @escaping () -> Void) {
+        listeners.append(listener)
+    }
+
+    /// 整体替换历史（启动时从磁盘恢复用）
+    func replaceAll(_ newItems: [ClipboardItem]) {
+        items = Array(newItems.prefix(maxItems))
+        notify()
+    }
 
     func add(text: String) {
         let item = ClipboardItem(text: text)
@@ -157,6 +168,6 @@ final class ClipboardStore {
     }
 
     private func notify() {
-        onUpdate?()
+        listeners.forEach { $0() }
     }
 }

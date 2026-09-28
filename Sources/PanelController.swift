@@ -34,7 +34,7 @@ final class PanelController: NSObject {
         super.init()
         configurePanel()
         installKeyMonitor()
-        store.onUpdate = { [weak self] in self?.refresh() }
+        store.addListener { [weak self] in self?.refresh() }
     }
 
     deinit {
